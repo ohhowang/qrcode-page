@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="container"></div>
+
+  <script>
+    function parseQuery() {
+      const search = location.search.slice(1)
+      const pairs = search ? search.split('&') : []
+      const query = {}
+      for (let i = 0; i < pairs.length; ++i) {
+        const [key, value] = pairs[i].split('=')
+        query[key] = query[key] || decodeURIComponent(value)
+      }
+      return query
+    }
+
+    function init() {
+      const { name, avatar, mobile, email } = parseQuery()
+
+      const htmlStr = `
+      <div>
+        <image src=${avatar} style="width: 100px; height: 100px;" />
+        <div>
+          <div>姓名: ${name}</div>
+          <div>手机号: ${mobile}</div>
+          <div>邮箱: ${email}</div>
+        </div>
+      </div>
+      `
+      container.innerHTML = htmlStr
+    }
+    init()
+  </script>
+</body>
+
+</html>
